@@ -1,0 +1,60 @@
+body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    /* background-color: rgba(0, 6, 2, 0.637); */
+    background-color:#ffffff;
+}
+ nav{
+    display:flex;
+    /* flex-wrap:wrap; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height:100; */
+   
+}
+#bottom{
+    margin: 20px;
+    padding-top: 25px;
+}
+#idAjouter{
+    margin: 20px;
+    padding-top: 25px;
+    display:flex;
+    justify-content: center;  
+}
+nav h1{
+    /* color: #717171; */
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 55px;
+   margin-top:3px ;
+   color:	#000000;
+    
+}
+
+nav .onglets{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    padding-top:40px;
+    color:	#000000;
+   
+    
+}
+ nav .onglets a{
+     text-decoration: none; 
+     padding: 10px;
+    /* padding-left:65px; */
+    /* width: 400px; */
+    color:	#757677;
+    /* margin-right: 10px; */
+    /* border-bottom:1px solid #000 ; */
+    /* padding-bottom: 5px; */
+    /* font-size: 17px; */
+    
+   
+
+} 
