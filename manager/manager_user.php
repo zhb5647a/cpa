@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\Exception;
     class ManagerUtil extends Utilisateur{
         //ajouter un utilisateur
         public function createUtil(object $bdd):void{
-            try{
+            
                 //stockage des valeurs de l'objet utilisateur
                 $name = $this->getNameUtil();
                 $first = $this->getFirstNameUtil();
@@ -15,6 +15,7 @@ use PHPMailer\PHPMailer\Exception;
                 $valide = $this->getValideUtil();
                 $token = $this->getTokenUtil();
                 //préparation de la requête
+                try{
                 $req = $bdd->prepare('INSERT INTO utilisateur(name_util, first_name_util, 
                 mail_util, pwd_util, id_role, valide_util, token_util) 
                 VALUES(?, ?, ?, ?, ?, ?, ?)');
