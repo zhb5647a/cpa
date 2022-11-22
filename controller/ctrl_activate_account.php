@@ -9,7 +9,7 @@
         //nettoyer le contenu de $_GET['id']
         $token = cleanInput($_GET['id']);
         //instance de ManagerUtil
-        $util = new ManagerUtil(null, null, null, null, null);
+        $util = new ManagerUtil(null, null, null, null, null, null, null);
         //set la valeur du token
         $util->setTokenUtil($token);
         //récupére l'utilisateur

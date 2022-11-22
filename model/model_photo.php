@@ -10,6 +10,7 @@
         private ?string $url_photo;
          /*Foreign key */
         private ?string $id_thema;
+        private ?string $id_util;
         
 
         /*-----------------------------------------
@@ -43,6 +44,9 @@
         public function getIdThema():?int{
             return $this->id_thema;
         }
+        // public function getIdUtil():?int{
+        //     return $this->id_util;
+        // }
         public function setIdPhoto(?int $id):void{
             $this->id_photo = $id;
         }
@@ -61,24 +65,5 @@
         public function setIdThem(?int $id):void{
             $this->id_thema = $id;
         }
-
-// //function qui va ajouter un enregistrement en BDD(table image)
-// function addPhoto($bdd, $nom, $createAt,0 ,$url, $id){
-//     try{
-//         $req = $bdd->prepare('INSERT INTO image(name_photo, createdAt, url_photo) 
-//         VALUES(:name_photo, :createdAt, :url_photo)');
-//         $req->execute(array(
-//             'name_photo' => $nom,
-//             'createdAt' =>$createAt,
-//             'updateAt' =>$update,
-//             'url_photo ' =>$url
-//             ));
-//     }
-//     catch(Exception $e)
-//     {
-//         //affichage d'une exception en cas d’erreur
-//         die('Erreur : '.$e->getMessage());
-//     }
-// }
 
     }

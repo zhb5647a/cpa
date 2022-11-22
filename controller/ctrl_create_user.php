@@ -4,7 +4,7 @@
     include './id_smtp.php';
     include './model/model_user.php';
     include './manager/manager_user.php';
-    include './vue/view_create_user.php';
+    include './vue/back/view_create_membre.php';
     $message = "";
     //test si le bouton submit est cliqué
     if(isset($_POST['createUser'])){
@@ -23,7 +23,7 @@
                 $mail_util = cleanInput($_POST['mail_util']);
                 //instance d'un objet ManagerUtil (role utilisateur)
                 $util = new ManagerUtil($name_util, $first_name_util, $mail_util,
-                $pwd_util, 1);
+                $pwd_util,  1);
                 //création du token
                 $util->setTokenUtil(md5($mail_util)); 
                 //récupération d'un compte utilisateur en BDD
@@ -53,7 +53,7 @@
                     $emailMessage = "<a href='http://localhost/cpa/activate?id=$hash'>
                     Activer votre compte utilisateur</a>";
                     //envoi du mail d'activation
-                    $util->sendMail2($userMail, $subject, $emailMessage,
+                    $util->sendMail($userMail, $subject, $emailMessage,
                     $login_smtp, $mdp_smtp);
                     //message de confirmation
                     $message = "<br>Le compte $name_util à été ajouté";

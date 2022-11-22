@@ -2,6 +2,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+
+
     class ManagerUtil extends Utilisateur{
         //ajouter un utilisateur
         public function createUtil(object $bdd):void{
@@ -59,20 +61,21 @@ use PHPMailer\PHPMailer\Exception;
             return $data;
         }
           //fonction envoyer un mail
-          public function sendMail2(?string $userMail, ?string $subject, ?string $emailMessage,
+          public function sendMail(?string $userMail, ?string $subject, ?string $emailMessage,
           ?string $login_smtp, ?string $mdp_smtp){
               require './vendor/autoload.php';
        //Create an instance; passing `true` enables exceptions
               $mail = new PHPMailer(true);
               try {
                   //Server settings
-                  $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
+                //   $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                  $mail->SMTPDebug = 0;                       
                   $mail->isSMTP();                                            
                   $mail->Host       = 'smtp.office365.com';                     
                   $mail->SMTPAuth   = true;                                  
                   $mail->Username   = $login_smtp;                     
                   $mail->Password   = $mdp_smtp;                               
-                  $mail->SMTPSecure = 'tls';            
+                  $mail->SMTPSecure = 'starttls';            
                   $mail->Port       = 587;                                    
                   //Recipients
                   $mail->setFrom($login_smtp, 'ClubPhotoAmateur');
@@ -87,7 +90,24 @@ use PHPMailer\PHPMailer\Exception;
                   echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
               }
           }
-  
+          //fonction active un compte
+    public function activateUtil(object $bdd):void{
+        try{
+            $token = $this->getTokenUtil();
+            //préparation de la requête
+            $req = $bdd->prepare('UPDATE utilisateur SET valide_util = 1 
+            WHERE token_util = ?');
+            //affectation des paramètres
+            $req->bindparam(1,$token, PDO::PARAM_STR);
+            $req->execute();
+        }
+        //exception
+        catch(Exception $e)
+        {
+            //affichage d'une exception en cas d’erreur
+            die('Erreur : '.$e->getMessage());
+        }
+    }
       }
   ?>
     

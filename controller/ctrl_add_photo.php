@@ -1,14 +1,17 @@
 
     <?php
+    // session_start(); 
     //imports
     include_once './utils/connectBdd.php';
-    // include_once './utils/function.php';
+    include_once './utils/fileExt.php';
+    include_once './utils/header_admin.php';
     include_once './model/model_photo.php';
     include_once './manager/manager_photo.php';
-    include_once './vue/view_add_photo.php';
+    include_once './vue/back/view_add_photo.php';
+
+
     $msg = "";
-    //tests
-    //test si le bouton est cliqué
+ 
     if(isset($_POST['addPhoto'])){
         //test si les champs sont remplis
         if(!empty($_POST['name_photo']) AND !empty($_POST['createdAt']) AND !empty($_POST['updateAt'])
@@ -23,33 +26,47 @@
             $data = new ManagerPhoto();
              //créer des variables qui vont contenir le contenu des super globales FILES
              $name=$_FILES['url_photo']['name'];
+             $ext = get_file_extension($name);
+             $allow_ext = array("png","jpg","gif","webp");
+            //  var_dump($ext);
              $tmpName = $_FILES['url_photo']['tmp_name'];
              $nom = $_POST['name_photo'];
              $data->setNom($nom);
              $data->setCreatedAt($_POST['createdAt']);
              $data->setUpdateAt($_POST['updateAt']);
-            $data->setUrlPhoto($name);
-            $data->setIdThem($_POST['id_thema']);
-            // $data->addPhoto($bdd);
-          
-            $upload = "./asset/image/$name";
+            // $data->setUrlPhoto($name);
+             $data->setIdThem($_POST['id_thema']);
             
+            if(in_array($ext,$allow_ext)){
+            $upload = "./asset/image/$name";
+            // $upload = "ftp://test@localhost/image/$name";
+       
+            
+            $data->setUrlPhoto($upload);
             // if(isset($_POST['id_thema'])){
             //     foreach()
             // }
             
             //déplacer l'image dans le dossier image (rename)
             move_uploaded_file($tmpName, $upload);
-            //function qui ajoute l'image en  BDD
+            //function qui ajoute l'image en  BDD,
             $data->addPhoto($bdd);
-            $msg = 'La photo'.$nom.' à été ajoutée avec success';
+            $msg = ''.$nom.' à été ajoutée avec success';
+        }
+        else{
+            $msg = "votre fichier n'est pas une image";
+        }
         }
         else{
             $msg = "Veuillez remplir tous les champs";
         }
+           
     }
     else{
         $msg = "Pour ajouter une photo veuillez remplir le formulaire";
     }
     echo $msg;
+
+ 
+   
 ?>
